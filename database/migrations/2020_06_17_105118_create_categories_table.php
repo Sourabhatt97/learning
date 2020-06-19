@@ -16,7 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->ENUM('status',['1','0']);
+            $table->ENUM('status',['y','n','t'])->default('y');
             $table->timestamps();
         });
     }

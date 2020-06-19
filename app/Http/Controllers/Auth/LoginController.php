@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -44,6 +44,7 @@ class LoginController extends Controller
     public function redirectToProvider()
     {
         return Socialite::driver('facebook')->redirect();
+        // return "HEllo";
     }
 
     /**
@@ -78,6 +79,24 @@ class LoginController extends Controller
             $obj->save();
 */
             // return redirect('/home');
+        }
+    }
+
+    protected function credentials(Request $request)
+    {
+        if(is_numeric($request->get('email')))
+        {
+            return ['phone'=>$request->get('email'),'password'=>$request->get('password')];
+        }
+
+        else if (preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $request->get('email')) ) 
+        {
+            return ['email' => $request->get('email'), 'password' => $request->get('password')];
+        } 
+
+        else if(is_string($request->get('email')))
+        {
+            return ['username' => $request->get('email'), 'password' => $request->get('password')];               
         }
     }
 }

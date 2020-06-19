@@ -17,12 +17,14 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->bigInteger('color_id')->unsigned();
+            $table->foreign('color_id')->references('id')->on('colors');
             $table->string('name');
             $table->string('access_url');
             $table->string('UPC')->unique();
             $table->text('description');
             $table->float('price',5,2);
-            $table->ENUM('status',['1','0']);
+            $table->ENUM('status',['y','n','t'])->default('y');
             $table->string('stock');
             $table->timestamps();
         });

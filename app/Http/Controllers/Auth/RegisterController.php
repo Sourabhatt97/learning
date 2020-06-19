@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
+use Auth;
+use Storage;
 
 class RegisterController extends Controller
 {
@@ -48,11 +52,73 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return  Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required','digits:10','unique:users'],
+            'age' => ['required'],
+            'gender' => ['required'],
+            'image' => ['mimes:jpg,jpeg,png|required|max:10000'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+
+
+    }
+
+    protected function checkemail(Request $request)
+    {   
+        if($request->ajax())
+        {
+            $email = User::where('email',$request->email)->get()->count();
+
+            if($email)
+            {
+                return "false";
+            }
+
+            else
+            {
+                return "true";
+            }
+        }
+    }
+
+    protected function checkusername(Request $request)
+    {   
+        if($request->ajax())
+        {
+            $username = User::where('username',$request->username)->get()->count();
+
+            if($username)
+            {
+                return "false";
+            }
+
+            else
+            {
+                return "true";
+            }
+        }
+    }
+
+
+    protected function checkphone(Request $request)
+    {   
+        if($request->ajax())
+        {
+            $phone = User::where('phone',$request->phone)->get()->count();
+
+            if($phone)
+            {
+                return "false";
+            }
+
+            else
+            {
+                return "true";
+            }
+        }
     }
 
     /**
@@ -63,10 +129,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $pic = request()->file('image')->store('public/users/images/' .$data['username']);
+        
+        $user = User::create([
             'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
+            'age' => $data['age'],
+            'gender' => $data['gender'],
+            'image' => $pic,
             'password' => Hash::make($data['password']),
         ]);
+        
+        return $user;
     }
 }

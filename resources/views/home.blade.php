@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ url('resources/assets/default/js/app.js') }}" defer></script>
 
 @section('content')
 <div class="container">
