@@ -3,35 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\category;
+use App\ideal;
 use Validator;
+use Auth;
 
-class categorycontroller extends Controller
+class idealcontroller extends Controller
 {
     public function index()
     {
-    	return view('layout.admin.category.addcategory');
+    	return view('layout.admin.ideal.addideal');
     }
 
     public function insert(Request $request)
     {
        $validator = Validator::make($request->all(), 
         [
-            'name' => 'required|unique:categories'
+            'name' => 'required|unique:ideals'
         ]);
 
         if ($validator->fails()) 
         {
-            return redirect('admin/category/add')->with("message","Category is already added");
+            return redirect('admin/ideal/add')->with("message","ideal is already added");
         }   
 
-    	$obj = new category;
+    	$obj = new ideal;
 
     	$obj->name = $request->name;
     	
         if($obj->save())
         {
-    	   return back()->with("message","Category Added Successfully");
+    	   return back()->with("message","ideal Added Successfully");
         }
 
     }
@@ -40,7 +41,7 @@ class categorycontroller extends Controller
     {
     	if($request->ajax())
     	{
-    		$count = category::where('name',$request->name)->get()->count();
+    		$count = ideal::where('name',$request->name)->get()->count();
 
             if($count == 0)
             {
@@ -61,9 +62,9 @@ class categorycontroller extends Controller
             $name = $request->name;
             $id = $request->id;
 
-            $count = Category::where('name',$name)->get()->count();
+            $count = ideal::where('name',$name)->get()->count();
 
-            $self_count = Category::where('name',$name)->where('id',$id)->get()->count();
+            $self_count = ideal::where('name',$name)->where('id',$id)->get()->count();
 
             if($count == $self_count)
             {
@@ -79,16 +80,16 @@ class categorycontroller extends Controller
 
     public function show()
     {
-        $categories = Category::where('status','!=','t')->get();
+        $ideals = ideal::where('status','!=','t')->get();
 
-        return view('layout.admin.category.showcategory',compact('categories'));
+    return view('layout.admin.ideal.showideal',compact('ideals'));
     }
 
     public function status(Request $request)
     {
         if($request->ajax())
         {
-            Category::where('id',$request->id)->update(["status"=>$request->status]);
+            ideal::where('id',$request->id)->update(["status"=>$request->status]);
         }
 
         else
@@ -99,29 +100,29 @@ class categorycontroller extends Controller
 
     public function delete(Request $request, $id)
     {
-        Category::where('id',$request->id)->update(['status'=>'t']);
+        ideal::where('id',$request->id)->update(['status'=>'t']);
 
-        return back()->with("message",'Category Deleted Successfully');
+        return back()->with("message",'ideal Deleted Successfully');
     }
 
     public function trash()
     {
-        $trashcategories = Category::where('status','t')->get();
+        $trashideals = ideal::where('status','t')->get();
 
-        return view('layout.admin.category.trashcategory',compact('trashcategories'));
+        return view('layout.admin.ideal.trashideal',compact('trashideals'));
     }
 
     public function restore(Request $request, $id)
     {
-        Category::where('id',$request->id)->update(['status'=>'y']);
-        return back()->with("message","Category restored Successfully");
+        ideal::where('id',$request->id)->update(['status'=>'y']);
+        return back()->with("message","ideal restored Successfully");
     }
 
     public function edit(Request $request, $id)
     {
-        $editcategory = Category::where('id',$request->id)->get();
+        $editideal = ideal::where('id',$request->id)->get();
 
-        return view('layout.admin.category.editcategory',compact('editcategory'));
+        return view('layout.admin.ideal.editideal',compact('editideal'));
     }
 
     public function update(Request $request, $id)
@@ -131,30 +132,20 @@ class categorycontroller extends Controller
 
         $validator = Validator::make($request->all(), 
         [ 
-            'name' => 'required|unique:categories,name,' .$id
+            'name' => 'required|unique:ideals,name,' .$id
         ]);
 
         if ($validator->fails()) 
         {
-            return back()->with("message","Category is already added");
+            return back()->with("message","ideal is already added");
         }   
 
         else
         {
-            Category::where('id',$request->id)->update(['name'=>$name]);
+            ideal::where('id',$request->id)->update(['name'=>$name]);
 
-            return back()->with("message","Category Updated Successfully");
+            return back()->with("message","ideal Updated Successfully");
         }
 
     }
 }
-
-
-
-
-
-
-
-
-
-

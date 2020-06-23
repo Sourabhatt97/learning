@@ -1,7 +1,7 @@
 @extends('layout.admin.app')
 
 @section('title')
-Admin/Color/List
+Admin/Product/List
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@ Admin/Color/List
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <h4 class="page-title float-left">Colors</h4>
+                <h4 class="page-title float-left">Products</h4>
 
                 <div class="clearfix"></div>
             </div>
@@ -24,9 +24,9 @@ Admin/Color/List
                 @include('layout.admin.alert')
 
                 <div class="breadcrumb float-right">
-                    <a href = "{{url('admin/color/add')}}"><button type = "submit" class = "btn btn-success"><i class = "fa fa-plus"> Add</i></button></a>
+                    <a href = "{{url('admin/product/add')}}"><button type = "submit" class = "btn btn-success"><i class = "fa fa-plus"> Add</i></button></a>
 
-                    <a href = "{{url('admin/color/trash')}}"><button type = "submit" class = "btn btn-danger"><i class = "fa fa-trash"> Trash</i></button></a>
+                    <a href = "{{url('admin/product/trash')}}"><button type = "submit" class = "btn btn-danger"><i class = "fa fa-trash"> Trash</i></button></a>
                 </div>
 
                 <div class="table-responsive">
@@ -35,42 +35,60 @@ Admin/Color/List
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Image</th>
+                                <th>UPC</th>
+                                <th>Category</th>  
+                                <th>Color</th>
+                                <th>Brand</th> 
+                                <th>Ideal</th>  
+                                <th>Price</th>
+                                <th>Quantity</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
-                        @foreach($colors as $color)
+                        @foreach($products as $key=>$product)
                         <thread>
                             <tr>
-                                <td>{{$color->name}}</td>
-                                <td> <input class="switch" type="checkbox" data-id="{{$color->id}}" data-plugin="switchery" data-color="#64b0f2"  data-size="small"
-                                    @if($color->status == 'y')
+                                <td>{{$product->product_name}}</td>
+                                <td><img src = http://localhost/testing/storage/app/public/images/products/{{$product->UPC}}/main.jpg?.rand() alt = "Image" height = "60" width = "50"></td>
+                                <td>{{$product->UPC}}</td>
+                                <td>{{$product->category_name}}</td>
+                                <td>{{$product->color_name}}</td>
+                                <td>{{$product->brand_name}}</td>
+                                <td>{{$product->ideal_name}}</td>
+                                <td>{{$product->product_price}}</td>
+                                <td>{{$product->product_stock}}</td>
+                                <td><input class="switch" type="checkbox" data-id="{{$product->product_id}}" data-plugin="switchery" data-color="#64b0f2"  data-size="small"
+                                    @if($product->product_status == 'y')
                                     checked
                                     @endif
                                     />
-    
                                 </td>
 
                                 <td>
-                                    <a href="{{url('admin/color/delete').'/'. $color->id}}"><i class = "fa fa-trash"></i></a>
+                                    <a href="{{url('admin/product/delete').'/'.$product->product_id}}"><i class = "fa fa-trash"></i></a>
 
                                     &nbsp;&nbsp;
-                                    <a href="{{url('admin/color/edit').'/'. $color->id}}"><i class = "fa fa-pencil"></i></a>
+
+                                    <a href="{{url('admin/product/edit').'/'.$product->product_id}}"><i class = "fa fa-pencil"></i></a>
                                 </td>   
                             </tr>
                         </thread>
                         @endforeach
                     </table>
-                </div>          
+                </div>
             </div>
         </div>
     </div>
 </div>
 @stop
 
+
 @section("scripts")
 <script type="text/javascript">
+
     setTimeout(function() {
         $('#success').fadeOut('fast');
     }, 5000);
@@ -84,7 +102,7 @@ Admin/Color/List
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: "{{url('admin/color/switch')}}",
+                url: "{{url('admin/product/switch')}}",
                 data: {'id':id, 'status':status},
                 success: function(res){
                     console.log(res)
@@ -97,4 +115,4 @@ Admin/Color/List
 
     // });
 </script>
-@stop
+@endsection

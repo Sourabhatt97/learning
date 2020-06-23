@@ -34,7 +34,7 @@ Admin/Category/List
 
                         <thead>
                             <tr>
-                                <th>Category Name</th>
+                                <th>Name</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>

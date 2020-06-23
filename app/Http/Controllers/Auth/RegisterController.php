@@ -129,7 +129,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $pic = request()->file('image')->store('public/users/images/' .$data['username']);
+        $pic = request()->file('image')->storeAs('public/images/users/' .$data['username'].'',"main.jpg");
         
         $user = User::create([
             'name' => $data['name'],

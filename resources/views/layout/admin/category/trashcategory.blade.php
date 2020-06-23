@@ -29,7 +29,7 @@ Admin/Category/Trash
                     <table id="datatable-editable" class="table table-striped m-b-0">
                         <thead>
                             <tr>
-                                <th>Category Name</th>
+                                <th>Name</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>

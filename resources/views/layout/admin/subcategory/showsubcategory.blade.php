@@ -1,7 +1,7 @@
 @extends('layout.admin.app')
 
 @section('title')
-Admin/Color/List
+Admin/subcategory/List
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@ Admin/Color/List
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <h4 class="page-title float-left">Colors</h4>
+                <h4 class="page-title float-left">subcategory</h4>
 
                 <div class="clearfix"></div>
             </div>
@@ -24,9 +24,9 @@ Admin/Color/List
                 @include('layout.admin.alert')
 
                 <div class="breadcrumb float-right">
-                    <a href = "{{url('admin/color/add')}}"><button type = "submit" class = "btn btn-success"><i class = "fa fa-plus"> Add</i></button></a>
+                    <a href = "{{url('admin/subcategory/add')}}"><button type = "submit" class = "btn btn-success"><i class = "fa fa-plus"> Add</i></button></a>
 
-                    <a href = "{{url('admin/color/trash')}}"><button type = "submit" class = "btn btn-danger"><i class = "fa fa-trash"> Trash</i></button></a>
+                    <a href = "{{url('admin/subcategory/trash')}}"><button type = "submit" class = "btn btn-danger"><i class = "fa fa-trash"> Trash</i></button></a>
                 </div>
 
                 <div class="table-responsive">
@@ -35,17 +35,19 @@ Admin/Color/List
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Category</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
-                        @foreach($colors as $color)
+                        @foreach($subcategories as $subcategory)
                         <thread>
                             <tr>
-                                <td>{{$color->name}}</td>
-                                <td> <input class="switch" type="checkbox" data-id="{{$color->id}}" data-plugin="switchery" data-color="#64b0f2"  data-size="small"
-                                    @if($color->status == 'y')
+                                <td>{{$subcategory->name}}</td>
+                                <td>{{$subcategory->category_name}}</td>
+                                <td> <input class="switch" type="checkbox" data-id="{{$subcategory->id}}" data-plugin="switchery" data-color="#64b0f2"  data-size="small"
+                                    @if($subcategory->status == 'y')
                                     checked
                                     @endif
                                     />
@@ -53,10 +55,10 @@ Admin/Color/List
                                 </td>
 
                                 <td>
-                                    <a href="{{url('admin/color/delete').'/'. $color->id}}"><i class = "fa fa-trash"></i></a>
+                                    <a href="{{url('admin/subcategory/delete').'/'. $subcategory->id}}"><i class = "fa fa-trash"></i></a>
 
                                     &nbsp;&nbsp;
-                                    <a href="{{url('admin/color/edit').'/'. $color->id}}"><i class = "fa fa-pencil"></i></a>
+                                    <a href="{{url('admin/subcategory/edit').'/'. $subcategory->id}}"><i class = "fa fa-pencil"></i></a>
                                 </td>   
                             </tr>
                         </thread>
@@ -84,7 +86,7 @@ Admin/Color/List
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: "{{url('admin/color/switch')}}",
+                url: "{{url('admin/subcategory/switch')}}",
                 data: {'id':id, 'status':status},
                 success: function(res){
                     console.log(res)

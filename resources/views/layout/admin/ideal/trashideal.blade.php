@@ -1,7 +1,7 @@
 @extends('layout.admin.app')
 
 @section('title')
-Admin/color/Trash
+Admin/ideal/Trash
 @stop
 
 @section('content')
@@ -11,9 +11,9 @@ Admin/color/Trash
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <h4 class="page-title float-left">color/Trash</h4>
+                <h4 class="page-title float-left">ideal/Trash</h4>
                 <div class="breadcrumb float-right">
-                    <a href = "{{url('admin/color/show')}}"><button type = "submit" class = "btn btn-default"><i class = "fa fa-arrow-left"> Back</i></button></a>
+                    <a href = "{{url('admin/ideal/show')}}"><button type = "submit" class = "btn btn-default"><i class = "fa fa-arrow-left"> Back</i></button></a>
                 </div>
 
 
@@ -35,13 +35,13 @@ Admin/color/Trash
                             </tr>
                         </thead>
 
-                        @foreach($trashcolors as $trashcolor)
+                        @foreach($trashideals as $trashideal)
                         <thread>
                             <tr>
-                                <td>{{$trashcolor->name}}</td>
+                                <td>{{$trashideal->name}}</td>
                                 <td>Trash</td>
                                 <td>
-                                    <a href="{{url('admin/color/restore').'/'. $trashcolor->id}}"><input type = "submit" value = "Restore" class="btn btn-warning"></a>
+                                    <a href="{{url('admin/ideal/restore').'/'. $trashideal->id}}"><input type = "submit" value = "Restore" class="btn btn-warning"></a>
 
                                 </td>
                             </tr>

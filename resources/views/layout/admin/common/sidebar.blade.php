@@ -27,6 +27,28 @@
                     </ul>
                 </li>
 
+                 <li>
+                    <a href="javascript: void(0);"><i class="fi-target"></i> <span> SubCategory </span> <span class="menu-arrow"></span></a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="{{url('admin/subcategory/add')}}">Add</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);"><i class="fi-target"></i> <span> Brand </span> <span class="menu-arrow"></span></a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="{{url('admin/brand/add')}}">Add</a></li>
+                    </ul>
+
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="{{url('admin/brand/show')}}">List</a></li>
+                    </ul>
+
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="{{url('admin/brand/trash')}}">Trash</a></li>
+                    </ul>
+                </li>
+
                 <Li>
                     <a href="javascript: void(0);"><i class="fi-target"></i> <span> Color </span> <span class="menu-arrow"></span></a>
 
@@ -44,7 +66,7 @@
                     </ul>
                 </Li>
 
-               <!--  <Li>
+                <Li>
                     <a href="javascript: void(0);"><i class="fi-target"></i> <span> Product </span> <span class="menu-arrow"></span></a>
 
                     <ul class="nav-second-level" aria-expanded="false">
@@ -61,6 +83,22 @@
                 </li> 
 
                 <Li>
+                    <a href="javascript: void(0);"><i class="fi-target"></i> <span> Ideal </span> <span class="menu-arrow"></span></a>
+
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="{{url('admin/ideal/add')}}">Add</a></li>
+                    </ul>
+
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="{{url('admin/ideal/show')}}">List</a></li>
+                    </ul>
+
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="{{url('admin/ideal/trash')}}">Trash</a></li>
+                    </ul>
+                </li> 
+
+               <!--  <Li>
                     <a href="javascript: void(0);"><i class="fi-target"></i> <span> Users </span> <span class="menu-arrow"></span></a>
 
                     <ul class="nav-second-level" aria-expanded="false">

@@ -19,11 +19,16 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->bigInteger('color_id')->unsigned();
             $table->foreign('color_id')->references('id')->on('colors');
+            $table->bigInteger('brand_id')->unsigned();
+            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->bigInteger('ideal_id')->unsigned();
+            $table->foreign('ideal_id')->references('id')->on('ideals');
             $table->string('name');
             $table->string('access_url');
             $table->string('UPC')->unique();
+            $table->string('image');
             $table->text('description');
-            $table->float('price',5,2);
+            $table->float('price');
             $table->ENUM('status',['y','n','t'])->default('y');
             $table->string('stock');
             $table->timestamps();
