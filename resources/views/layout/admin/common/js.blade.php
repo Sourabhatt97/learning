@@ -62,3 +62,10 @@
 <script type="text/javascript" src="{{ url('resources/assets/admin/plugins/autocomplete/jquery.autocomplete.min.js') }}"></script>
 <script type="text/javascript" src="{{ url('resources/assets/admin/plugins/autocomplete/countries.js') }}"></script>
 <script type="text/javascript" src="{{ url('resources/assets/admin/pages/jquery.autocomplete.init.js') }}"></script> --}}
+
+<!-- Jquery filer js -->
+<script src="{{url('resources/assets/admin/plugins/jquery.filer/js/jquery.filer.min.js')}}"></script>
+
+<script src="{{url('resources/assets/admin/pages/jquery.fileuploads.init.js')}}"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

@@ -10,7 +10,12 @@ class categorycontroller extends Controller
 {
     public function index()
     {
-    	return view('layout.admin.category.addcategory');
+
+    	$categories = Category::with('children')->where('parent_id',0)->where('status','y')->get();
+
+        return view('layout.admin.category.addcategory')->with([
+            'categories'  => $categories
+        ]);
     }
 
     public function insert(Request $request)
@@ -27,7 +32,8 @@ class categorycontroller extends Controller
 
     	$obj = new category;
 
-    	$obj->name = $request->name;
+        $obj->name = $request->name;
+        $obj->parent_id = $request->category_id;
     	
         if($obj->save())
         {
@@ -145,7 +151,11 @@ class categorycontroller extends Controller
 
             return back()->with("message","Category Updated Successfully");
         }
+    }
 
+    public function abc(Request $request)
+    {
+        return $request->images;
     }
 }
 

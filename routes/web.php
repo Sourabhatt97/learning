@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layout.front.index');
 });
 
 Auth::routes(['verify' => true]);
@@ -28,7 +28,8 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallba
 
 Route::get('/deleteaccount','deletecontroller@delete_account')->middleware(['auth','web','verified']);
 
-	
+// Admin Routes
+
 Route::group(['prefix' => 'admin' ,'middleware' => ['web','auth','checkadmin:1'],],function()
 {
 	Route::get('dashboard','verifycontroller@index');
@@ -64,23 +65,6 @@ Route::group(['prefix' => 'admin' ,'middleware' => ['web','auth','checkadmin:1']
 		Route::get('/check','subcategorycontroller@check'); // ajax check subcategory unique
 	});
 
-	// Brand Route
-	Route::group(['prefix' => 'brand'],function()
-	{
-		Route::get('/add','brandcontroller@index');      // Form view call
-		Route::post('/insert','brandcontroller@insert'); 	//brand insert
-		Route::get('/check','brandcontroller@check'); // ajax check brand unique
-		Route::get('/show','brandcontroller@show');  // list all brands
-		Route::get('/switch','brandcontroller@status');  //brand status change
-		Route::get('/delete/{id}','brandcontroller@delete');   // Delete brand 
-		Route::get('/trash','brandcontroller@trash');  // All trash brand
-		Route::get('/restore/{id}','brandcontroller@restore'); //Restore Trash brand
-		Route::get('/edit/{id}','brandcontroller@edit'); //Edit brand view call
-		Route::post('/update/{id}','brandcontroller@update'); //Update brand Change brand 
-		Route::get('/checkedit','brandcontroller@checkedit'); //Checkbrand unique while update
-
-	});
-
 	//Color Route
 	Route::group(['prefix' => 'color'],function()
 	{
@@ -113,30 +97,17 @@ Route::group(['prefix' => 'admin' ,'middleware' => ['web','auth','checkadmin:1']
 		Route::post('/update/{id}','productcontroller@update'); //Update product change product name 
 		Route::get('/checkeditname','productcontroller@checkeditname'); // Check product name unique edit 
 	});
-
-	// Ideal Route
-	Route::group(['prefix' => 'ideal'],function()
-	{
-		Route::get('/add','idealcontroller@index');      // view call
-		Route::post('/insert','idealcontroller@insert'); 	//ideal insert
-		Route::get('/check','idealcontroller@check'); // ajax check ideal unique
-		Route::get('/show','idealcontroller@show');  // list all ideals
-		Route::get('/switch','idealcontroller@status');  //ideal status change
-		Route::get('/delete/{id}','idealcontroller@delete');   // Delete ideal 
-		Route::get('/trash','idealcontroller@trash');  // All trash ideal
-		Route::get('/restore/{id}','idealcontroller@restore'); //Restore Trash ideal
-		Route::get('/edit/{id}','idealcontroller@edit'); //Edit ideal view call
-		Route::post('/update/{id}','idealcontroller@update'); //Update ideal Change Category 
-		Route::get('/checkedit','idealcontroller@checkedit'); //Checkideal unique while update
-	});
 });
 
 
+// Client Routes
+Route::get('/',function()
+{
+	return view('layout.front.index');
+});
 
-
-
-
-
+Route::get('/watches','productsviewcontroller@index'); // Watches page call
+Route::get('/watchfilter','productsviewcontroller@watchfilter'); // Filteration of Watches
 
 
 

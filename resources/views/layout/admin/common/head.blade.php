@@ -3,6 +3,14 @@
 <!-- App favicon -->
 <link rel="shortcut icon" href="{{ url('resources/assets/admin/images/favicon.ico') }}">
 
+<!-- Jquery filer css -->
+<link href="{{url('resources/assets/admin/plugins/jquery.filer/css/jquery.filer.css')}}" rel="stylesheet" />
+
+<link href="{{url('resources/assets/admin/plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css')}}" rel="stylesheet" />
+
+<link href="{{url('resources/assets/admin/css/style.css')}}" rel="stylesheet" type="text/css" />
+
+
 <!-- C3 charts css -->
 <link href="{{ url('resources/assets/admin/plugins/c3/c3.min.css') }}" rel="stylesheet" type="text/css"  />
 
@@ -38,5 +46,4 @@
 
 			<!-- Ui links end -->
 
-			<!-- More UI addition here -->
-	
+		

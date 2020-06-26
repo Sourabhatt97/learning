@@ -32,7 +32,6 @@ Admin/trashproduct/Trash
                                 <th>UPC</th>
                                 <th>Category</th>   
                                 <th>Color</th>
-                                <th>Brand</th>   
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Actions</th>
@@ -47,7 +46,6 @@ Admin/trashproduct/Trash
                                 <td>{{$trashproduct->UPC}}</td>
                                 <td>{{$trashproduct->category_name}}</td>
                                 <td>{{$trashproduct->color_name}}</td>
-                                <td>{{$trashproduct->brand_name}}</td>
                                 <td>{{$trashproduct->product_price}}</td>
                                 <td>{{$trashproduct->product_stock}}</td>
                                 <td>

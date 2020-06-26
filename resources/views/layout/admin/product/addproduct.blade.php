@@ -2,11 +2,79 @@
 
 @section('head')
 
+
 <style>
 	#myform .error
 	{
 		color: red;
 	}
+
+	.preview-images-zone {
+		width: 100%;
+		border: 1px solid #ddd;
+		min-height: 180px;
+		/* display: flex; */
+		padding: 5px 5px 0px 5px;
+		position: relative;
+		overflow:auto;
+	}
+	.preview-images-zone > .preview-image:first-child {
+		height: 185px;
+		width: 185px;
+		position: relative;
+		margin-right: 5px;
+	}
+	.preview-images-zone > .preview-image {
+		height: 90px;
+		width: 90px;
+		position: relative;
+		margin-right: 5px;
+		float: left;
+		margin-bottom: 5px;
+	}
+	.preview-images-zone > .preview-image > .image-zone {
+		width: 100%;
+		height: 100%;
+	}
+	.preview-images-zone > .preview-image > .image-zone > img {
+		width: 100%;
+		height: 100%;
+	}
+	.preview-images-zone > .preview-image > .tools-edit-image {
+		position: absolute;
+		z-index: 100;
+		color: #fff;
+		bottom: 0;
+		width: 100%;
+		text-align: center;
+		margin-bottom: 10px;
+		display: none;
+	}
+	.preview-images-zone > .preview-image > .image-cancel {
+		font-size: 18px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-weight: bold;
+		margin-right: 10px;
+		cursor: pointer;
+		display: none;
+		z-index: 100;
+	}
+	.preview-image:hover > .image-zone {
+		cursor: move;
+		opacity: .5;
+	}
+	.preview-image:hover > .tools-edit-image,
+	.preview-image:hover > .image-cancel {
+		display: block;
+	}
+	.ui-sortable-helper {
+		width: 90px !important;
+		height: 90px !important;
+	}
+
+
 </style>
 
 @section('title')
@@ -63,35 +131,57 @@ Admin/Product/Add
 							<a href="#" class="remove btn btn-action"style="display: none;"><i class="fa fa-remove"></i></a>
 						</span><br>
 
-						<b>Brand<sup><font color = "red">*</font></sup></b> 
-						<select name = "brand_id" id = "brand" class="form-control select2">
-							<option value = ''>Select Brand..</option>
-							@foreach($brands as $brand)
-							<option value = "{{$brand->id}}">{{$brand->name}}</option>
+						<b>Category<sup><font color = "red">*</font></sup></b> 
+						<select name = "category_id" id = "category" class="form-control select2">
+							<option value = ''>Select Category..</option>
+
+							@foreach($categories as $category)
+							<option value = "{{$category->id}}">{{$category->name}}</option>
+
+							@if($category->children)
+							@foreach($category->children as $child)
+							<option value = "{{$child->id}}">--{{$child->name}}</option>
+
+							@if($child->children)
+							@foreach($child->children as $c)
+							<option value = "{{$c->id}}">----{{$c->name}}</option>
+
+							@if($c->children)
+							@foreach($c->children as $c1)
+							<option value = "{{$c1->id}}">------{{$c1->name}}</option>
+
+							@if($c1->children)
+							@foreach($c1->children as $c2)
+							<option value = "{{$c2->id}}">--------{{$c2->name}}</option>
+
+							@if($c1->children)
+							@foreach($c2->children as $c3)
+							<option value = "{{$c3->id}}">----------{{$c3->name}}</option>
+
+							@if($c3->children)
+							@foreach($c3->children as $c4)
+							<option value = "{{$c4->id}}">------------{{$c4->name}}</option>
+							@endforeach
+							@endif
+							@endforeach
+							@endif
+							@endforeach
+							@endif
+							@endforeach
+							@endif
+							@endforeach
+							@endif
+							@endforeach
+							@endif
 							@endforeach
 						</select><br>
 
-						<b>Category<sup><font color = "red">*</font></sup></b> 
-						<select name = "category_id" id = "cat" class="form-control select2">
-							<option value = ''>Select Category..</option>
-							@foreach($categories as $category)
-							<option value = "{{$category->id}}">{{$category->name}}</option>
-							@endforeach
-						</select><br>
 
 						<b>Color<sup><font color = "red">*</font></sup></b>
 						<select name = "color_id" class="form-control select2">
 							<option value = ''>Select Color..</option>
 							@foreach($colors as $color)
 							<option value = "{{$color->id}}">{{$color->name}}</option>
-							@endforeach
-						</select><br>
-
-						<b>Ideal<sup><font color = "red">*</font></sup></b>
-						<select name = "ideal_id" class="form-control select2">
-							<option value = ''>Select Ideal..</option>
-							@foreach($ideals as $ideal)
-							<option value = "{{$ideal->id}}">{{$ideal->name}}</option>
 							@endforeach
 						</select><br>
 
@@ -107,12 +197,12 @@ Admin/Product/Add
 						<input type = "file" id = "image" name = "image"><br>
 						<br>
 
-						<table class="table table-hover" id="dynamic_field">  
-							<tr><strong>More Images <sup><font color = "Red">(Optional)</font></sup></strong>
-								<td><input type="file" name="images[]" multiple="" class="form-control name_list" /></td>  
-								<td><button type="button" name="add" id="add"  class="add">+</button></td>  
-							</tr>  
-						</table>
+						Multiple Image<sup><font color="red">(optional)</font></sup>
+						<a href="javascript:void(0)" onclick="$('#abc').click()">Upload Image</a>
+						<input type="file" id="abc" name="images[]" style="display: none;" multiple>
+						<div class="preview-images-zone">
+
+						</div><br>
 
 						<center>
 							<button type = "submit" id = "submit" class = "btn btn-success  btn-block">ADD</button>
@@ -124,25 +214,10 @@ Admin/Product/Add
 	</div>
 </div>
 </div>
-
 @stop
 @section('scripts')
 
 <script type="text/javascript">
-
-	$(document).ready(function(){
-		var i=1;  
-		$(document).on('click', '.add', function(){  
-			i++;  
-			$('#dynamic_field').append('<tr id="row'+i+'"><td><input type="file" name="images[]" multiple class="form-control name_list" /></td>'+'<td><button type="button" name="add" class="add">+</button>'
-				+'<td><button type="button" name="remove" id="'+i+'" class=" btn_remove">-</button></td></tr>');   
-		}); 
-
-		$(document).on('click', '.btn_remove', function(){  
-			var button_id = $(this).attr("id");  
-			$('#row'+button_id+'').remove();  
-		});  
-	}); 
 
 	setTimeout(function() {
 		$('#success').fadeOut('fast');
@@ -176,16 +251,6 @@ Admin/Product/Add
 				},
 
 				subcategory_id:
-				{
-					required: true
-				},
-
-				ideal_id:
-				{
-					required: true
-				},
-
-				brand_id:
 				{
 					required: true
 				},
@@ -264,17 +329,7 @@ Admin/Product/Add
 					required: 'Please select category'
 				},
 
-				ideal_id:
-				{
-					required: 'Please select Ideal'
-				},
-
 				color_id:
-				{
-					required: 'Please select color'
-				},
-
-				brand_id:
 				{
 					required: 'Please select color'
 				},
@@ -342,5 +397,49 @@ Admin/Product/Add
 		$('.access_url_span').text($('#access_url').val());
 		$('input[name="access_url"]').val ($('.access_url_span').text())
 	});
+
+	$(document).ready(function() {
+		document.getElementById('abc').addEventListener('change', readImage, false);
+
+		$( ".preview-images-zone" ).sortable();
+
+		$(document).on('click', '.image-cancel', function() {
+			let no = $(this).data('no');
+			$(".preview-image.preview-show-"+no).remove();
+		});
+	});
+
+
+
+	var num = 4;
+	function readImage() {
+		if (window.File && window.FileList && window.FileReader) {
+        var files = event.target.files; //FileList object
+        var output = $(".preview-images-zone");
+
+        for (let i = 0; i < files.length; i++) {
+        	var file = files[i];
+        	if (!file.type.match('image')) continue;
+
+        	var picReader = new FileReader();
+
+        	picReader.addEventListener('load', function (event) {
+        		var picFile = event.target;
+        		var html =  '<div class="preview-image preview-show-' + num + '">' +
+        		'<div class="image-cancel" data-no="' + num + '">x</div>' +
+        		'<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result + '"></div>' +
+        		'<div class="tools-edit-image"><a href="javascript:void(0)" data-no="' + num + '" class="btn btn-light btn-edit-image">edit</a></div>' +
+        		'</div>';
+
+        		output.append(html);
+        		num = num + 1;
+        	});
+
+        	picReader.readAsDataURL(file);
+        }
+    } 
+}
+
+
 </script> 
 @stop

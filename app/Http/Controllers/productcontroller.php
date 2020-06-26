@@ -4,29 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\Brand;
 use App\Category;
 use App\Color;
 use App\Product;
 use Validator;
 use Storage;
 use App\products_image;
-use App\ideal;
 use File;
 
 class productcontroller extends Controller
 {
 	public function index()
 	{
-		$category = Category::where('status','y')->get();
+    	$categories = Category::with('children')->where('parent_id',0)->where('status','y')->get();
 
 		$color = Color::where('status','y')->get();
 
-		$brand = Brand::where('status','y')->get();
-
-		$ideal = Ideal::where('status','y')->get();
-
-		return view('layout.admin.product.addproduct',['categories'=>$category,'colors'=>$color,'brands'=>$brand,'ideals'=>$ideal]);
+		return view('layout.admin.product.addproduct',['categories'=>$categories,'colors'=>$color]);
 	}
 
 	public function insert(Request $request)
@@ -38,8 +32,6 @@ class productcontroller extends Controller
 			'description' => 'required',
 			'category_id' => 'required',
 			'color_id' => 'required',
-			'brand_id' => 'required',
-			'ideal_id' => 'required',
 			'price' => 'required|min:1|max:10',
 			'stock' => 'required|min:1|max:10',
 		]);
@@ -59,8 +51,6 @@ class productcontroller extends Controller
 			$obj->name = $request->name;
 			$obj->category_id = $request->category_id;
 			$obj->color_id = $request->color_id;
-			$obj->brand_id = $request->brand_id;
-			$obj->ideal_id = $request->ideal_id;
 			$obj->description = $request->description;
 			$obj->access_url = $request->access_url;
 			$obj->UPC = $request->UPC;
@@ -133,9 +123,7 @@ class productcontroller extends Controller
 	{
 		$products = Product::join('colors', 'products.color_id', '=', 'colors.id')
 		->join('categories', 'products.category_id', '=', 'categories.id')
-		->join('brands', 'products.brand_id', '=', 'brands.id')
-		->join('ideals', 'products.ideal_id', '=', 'ideals.id')
-		->select('products.*', 'products.id as product_id','products.stock as product_stock','products.status as product_status','products.name as product_name','products.price as product_price', 'categories.*','categories.id as category_id','categories.name as category_name','colors.*','colors.id as 	color_id','colors.name as color_name','brands.*','brands.id as brand_id','brands.name as brand_name','ideals.*','ideals.id as ideal_id','ideals.name as ideal_name')
+		->select('products.*', 'products.id as product_id','products.stock as product_stock','products.status as product_status','products.name as product_name','products.price as product_price', 'categories.*','categories.id as category_id','categories.name as category_name','colors.*','colors.id as 	color_id','colors.name as color_name')
 		->where('products.status','!=','t')
 		->get();
 
@@ -158,8 +146,7 @@ class productcontroller extends Controller
 	{
 		$trashproducts = Product::join('colors', 'products.color_id', '=', 'colors.id')
 		->join('categories', 'products.category_id', '=', 'categories.id')
-		->join('brands', 'products.brand_id', '=', 'brands.id')
-		->select('products.*', 'products.id as product_id','products.stock as product_stock','products.status as product_status','products.name as product_name','products.price as product_price', 'categories.*','categories.id as category_id','categories.name as category_name','colors.*','colors.id as 	color_id','colors.name as color_name','brands.*','brands.id as brand_id','brands.name as brand_name')
+		->select('products.*', 'products.id as product_id','products.stock as product_stock','products.status as product_status','products.name as product_name','products.price as product_price', 'categories.*','categories.id as category_id','categories.name as category_name','colors.*','colors.id as 	color_id','colors.name as color_name')
 		->where('products.status','=','t')
 		->get();
 
@@ -186,17 +173,9 @@ class productcontroller extends Controller
 
 		$color_name = Color::where('id',$color_id->color_id)->get();
 
-		$brand_id = Product::select('brand_id')->where('id',$id)->get()->first();
-
-		$brand_name = Brand::where('id',$brand_id->brand_id)->get();
-
-		$ideal_id = Product::select('ideal_id')->where('id',$id)->get()->first();
-
-		$ideal_name = ideal::where('id',$ideal_id->ideal_id)->get();
-
 		$data = products_image::where('product_id',$id)->get();
 
-		return view('layout.admin.product.editproduct',['products'=>$product_name, 'categories'=>$category_name,'colors' =>$color_name, 'images'=>$data,'brands'=>$brand_name,'ideals'=>$ideal_name]);
+		return view('layout.admin.product.editproduct',['products'=>$product_name, 'categories'=>$category_name,'colors' =>$color_name, 'images'=>$data]);
 
 	}
 
@@ -278,7 +257,7 @@ class productcontroller extends Controller
 				$pic = $i->storeAs('public/images/products/'.$request->upc.'',''.$request->upc.'-'.$count++.".jpg");
 				$data[] = $name;
 
-				products_imageImage::insert(['product_id'=>$id,'image'=>$pic]);
+				products_image::insert(['product_id'=>$id,'image'=>$pic]);
 			}
 		}
 		return back()->with("message","Product Updated Successfully");

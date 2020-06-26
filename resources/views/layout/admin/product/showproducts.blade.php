@@ -39,7 +39,6 @@ Admin/Product/List
                                 <th>UPC</th>
                                 <th>Category</th>  
                                 <th>Color</th>
-                                <th>Brand</th> 
                                 <th>Ideal</th>  
                                 <th>Price</th>
                                 <th>Quantity</th>
@@ -56,7 +55,6 @@ Admin/Product/List
                                 <td>{{$product->UPC}}</td>
                                 <td>{{$product->category_name}}</td>
                                 <td>{{$product->color_name}}</td>
-                                <td>{{$product->brand_name}}</td>
                                 <td>{{$product->ideal_name}}</td>
                                 <td>{{$product->product_price}}</td>
                                 <td>{{$product->product_stock}}</td>
