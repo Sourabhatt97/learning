@@ -22,27 +22,13 @@ Laptops
 								<input type="button" class="btn-submit" value="OK" />
 							</form>
 						</dd>
-
-
-						<div class="block block-anav">
-							<br><h1><b>Categories</b></h1>
-							<ul style="" class="nav-accordion">
-								@foreach($categories as $category)
-								<form action = "{{url('laptop')}}" method = "POST">
-									<label>
-										<input type = "checkbox" class = "cat" name = "category" id = "cat" value = "{{$category->id}}"> {{$category->name}}
-									</label><br><br>
-								</form>
-								@endforeach
-							</ul>
-						</div><!--- .block-anav-->
 					</div><!--- .anav-container-->
 					<div class="block block-layered-nav block-layered-nav--no-filters">
 						<div class="block-title"> <strong><span>Shop By</span></strong></div>
 						<div class="block-content toggle-content">
 							<p class="block-subtitle block-subtitle--filter">Filter</p>
 							<dl id="narrow-by-list">
-
+								<br>
 								<div class="anav-container">
 									<h1><b>Colors</b></h1>
 									<ul style="" class="nav-accordion">
@@ -66,8 +52,8 @@ Laptops
 									<div class="sort-by">
 										<label>Sort By</label> 
 										<select  id="dropdownList">
-											<option value="position" selected="selected"> High to Low</option>
-											<option value="low"> Low to High</option>
+											<option value="position" selected="selected"> Low to High</option>
+											<option value="low"> High to Low</option>
 										</select>
 									</div>
 								</div>
@@ -91,7 +77,6 @@ Laptops
 		
 	});
 	*/
-
 	$('.btn-submit').on('click', function(){
 		get_data();
 	});
@@ -117,25 +102,13 @@ Laptops
 	});
 
 	function get_data(){
-		var category = [];
-		$.each($("input[name='category']:checked"), function() {
-			category.push($(this).val());
-		});
-
+		
 		var color = [];
 		$.each($("input[name='color']:checked"), function() {
 			color.push($(this).val());
 		});
 
-		var brand = [];
-		$.each($("input[name='brand']:checked"), function() {
-			brand.push($(this).val());
-		});
-
-		var ideal = [];
-		$.each($("input[name='ideal']:checked"), function() {
-			ideal.push($(this).val());
-		});
+		var category = $("#category option:selected").val();
 
 		var optionText = $("#dropdownList option:selected").text();
 
@@ -146,8 +119,8 @@ Laptops
 
 		$.ajax({
 			type: "GET",
-			url: "{{url('watchfilter')}}",
-			data: {'category':category, 'color':color, 'brand':brand, 'ideal':ideal, 'option':optionText,'ListType':ListType,'start':start,'end':end},
+			url: "{{url('productfilter')}}",
+			data: {'category':category,'color':color,'option':optionText,'ListType':ListType,'start':start,'end':end},
 			
 			success:function(res)
 			{
@@ -162,7 +135,7 @@ Laptops
 		$.ajax({
 			type: "GET",
 			url: "{{url('addcart')}}",
-			data: {'cart':cart,'quan':1},
+			data: {'cart':cart,'quantity':1},
 			success:function(res)
 			{
 				$('.mini_cart').html(res);          

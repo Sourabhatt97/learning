@@ -106,10 +106,16 @@ Route::get('/',function()
 	return view('layout.front.index');
 });
 
-Route::get('/watches','productsviewcontroller@index'); // Watches page call
-Route::get('/watchfilter','productsviewcontroller@watchfilter'); // Filteration of Watches
+Route::get('/products','productsviewcontroller@index'); // Watches page call
+Route::get('/productfilter','productsviewcontroller@productfilter'); // Filteration of Watches
 
+Route::get('/productdetail/{access_url}','productsviewcontroller@productdetail');
+Route::get('/addcart','cartcontroller@addcart');
+Route::get('/get_mini_cart','cartcontroller@getminicart');
+Route::get('/remove_mini_cart','cartcontroller@removeminicart');
+Route::get('/viewcart','cartcontroller@getfullcart');
 
+Route::get('/remove_product/{id}','cartcontroller@removeproduct');
 
 
 

@@ -6,7 +6,7 @@
 				<div class="products-list-container">
 					<div class="images-container">
 						<div class="product-hover">
-							<a href="{{url('laptop').'/'.$product->access_url}}" title="" class="product-image">
+							<a href="{{url('productdetail').'/'.$product->access_url}}" title="" class="product-image">
 								<img id="product-collection-image-8" class="img-responsive" src = http://localhost/testing/storage/app/public/images/products/{{$product->UPC}}/main.jpg?.rand() width="100" height="100" alt=""> 
 							</a>
 						</div>
@@ -16,7 +16,7 @@
 			<div class="product-shop col-mobile-12 col-xs-7 col-md-8 col-sm-8 col-lg-8">
 				<div class="f-fix">
 					<div class="product-primary products-textlink clearfix">
-						<h2 class="product-name"><a href="{{url('laptop').'/'.$product->access_url}}" title="Configurable Product">{{$product->name}}</a></h2>
+						<h2 class="product-name"><a href="{{url('productdetail').'/'.$product->access_url}}" title="Configurable Product">{{$product->name}}</a></h2>
 
 						<div class="price-box"> <span class="regular-price"> <span class="price">₹{{$product->price}}</span> </span></div>
 						<ul class="configurable-swatch-list configurable-swatch-color clearfix">

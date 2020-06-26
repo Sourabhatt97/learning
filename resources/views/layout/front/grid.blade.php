@@ -5,7 +5,7 @@
 		<div class="category-products-grid">
 			<div class="images-container">
 				<div class="product-hover" style="width:270px;height:290px;">
-					<a href="{{url('laptop').'/'.$product->access_url}}" title="{{$product->product_name}}" class="product-image">
+					<a href="{{url('productdetail').'/'.$product->access_url}}" title="{{$product->product_name}}" class="product-image">
 						<img id="product-collection-image-8" class="img-responsive" src=http://localhost/testing/storage/app/public/images/products/{{$product->UPC}}/main.jpg?.rand()
 						width= "180" height="150">
 
@@ -26,7 +26,7 @@
 				</div>
 			</div>
 			<div class="product-info products-textlink clearfix">
-				<h2 class="product-name"><a href="{{url('laptop').'/'.$product->access_url}}" title="{{$product->name}}">{{$product->name}}</a></h2>
+				<h2 class="product-name"><a href="{{url('productdetail').'/'.$product->access_url}}" title="{{$product->name}}">{{$product->name}}</a></h2>
 				<ul class="configurable-swatch-list configurable-swatch-color clearfix">
 
 				</ul>
