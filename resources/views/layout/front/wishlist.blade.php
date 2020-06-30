@@ -65,7 +65,7 @@
 				<div align = "right" class = "subtotal">{{$product->where('user_id',$user_id)->sum('Total_Amount')}}</div></center></H4>
 			</Strong>
 
-			<br><a href="{{url('checkout/billing')}}"><button type="button" class="btn-step cart_add" style="float: right;">Checkout</button></a>
+			<br><a href="{{url('billing')}}"><button type="button" class="btn-step cart_add" style="float: right;">Checkout</button></a>
 			@endisset
 		</div><!--- .table-responsive-wrapper-->
 

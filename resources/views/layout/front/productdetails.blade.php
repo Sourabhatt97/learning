@@ -1,5 +1,6 @@
 @extends('layout.front.app')
 @section('head')
+
 <style type="text/css">
 	input[type=number]::-webkit-inner-spin-button, 
 	input[type=number]::-webkit-outer-spin-button { 
@@ -17,6 +18,10 @@
 			<div class="container">
 				<div class="main">
 					<div class="row">
+						<div class="alert alert-success" hidden>
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Success!</strong> Product is successfully added
+						</div>
 						<div class="col-main col-lg-12">
 							<div class="product-view">
 								<div class="product-essential">
@@ -127,7 +132,7 @@
 
 		else
 		{
-			alert("Product added successfully");
+			$("div.alert-success").show("slow");
 		}
 
 		$.ajax({

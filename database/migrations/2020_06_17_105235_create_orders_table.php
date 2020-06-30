@@ -19,8 +19,6 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('billing_id')->unsigned();
             $table->foreign('billing_id')->references('id')->on('billing_addresses');
-            $table->bigInteger('shipping_id')->unsigned();
-            $table->foreign('shipping_id')->references('id')->on('shipping_addresses');
             $table->date('order_date');
             $table->date('ship_date');
             $table->date('payment_date');

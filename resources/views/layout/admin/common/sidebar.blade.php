@@ -60,7 +60,7 @@
                     </ul>
                 </li> 
 
-               <!--  <Li>
+<!--                 <Li>
                     <a href="javascript: void(0);"><i class="fi-target"></i> <span> Users </span> <span class="menu-arrow"></span></a>
 
                     <ul class="nav-second-level" aria-expanded="false">
@@ -71,14 +71,14 @@
                         <li><a href="{{url('admin/AllCustomer')}}">Customer</a></li>
                     </ul>
                 </li> 
-
+ -->
                 <Li>
                     <a href="javascript: void(0);"><i class="fi-target"></i> <span> Order </span> <span class="menu-arrow"></span></a>
 
                     <ul class="nav-second-level" aria-expanded="false">
                         <li><a href="{{url('admin/order/list')}}">List</a></li>
                     </ul>
-                </Li> -->
+                </Li>
             </ul>
 
         </div>

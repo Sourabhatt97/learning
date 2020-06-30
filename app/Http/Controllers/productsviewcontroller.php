@@ -115,30 +115,39 @@ class productsviewcontroller extends Controller
     {
         $products = Product::where('access_url',$access_url)->get();
 
-        foreach($products as $product)
-        {    
-            $status = $product['status'];
-            $id = $product['id'];
-        }
-
-        $images = products_image::where('product_id',$id)->get();
-
-        $category_id = Product::select('category_id')->where('id',$id)->first();
-        
-        $category_name = Category::where('id',$category_id['category_id'])->get();
-
-        $color_id = Product::select('color_id')->where('id',$id)->first();
-
-        $color_name = Color::where('id',$color_id['color_id'])->get();
-
-        if($status == 'y')
+        if(count($products) == 0)
         {
-            return view('layout.front.productdetails',['products'=>$products,'images'=>$images,'categories'=>$category_name,'colors'=>$color_name]);
+            abort(404);
         }
 
         else
         {
-            abort(404);
+
+            foreach($products as $product)
+            {    
+                $status = $product['status'];
+                $id = $product['id'];
+            }
+
+            $images = products_image::where('product_id',$id)->get();
+
+            $category_id = Product::select('category_id')->where('id',$id)->first();
+            
+            $category_name = Category::where('id',$category_id['category_id'])->get();
+
+            $color_id = Product::select('color_id')->where('id',$id)->first();
+
+            $color_name = Color::where('id',$color_id['color_id'])->get();
+
+            if($status == 'y')
+            {
+                return view('layout.front.productdetails',['products'=>$products,'images'=>$images,'categories'=>$category_name,'colors'=>$color_name]);
+            }
+
+            else
+            {
+                abort(404);
+            }
         }
     }
 }

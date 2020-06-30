@@ -26,7 +26,7 @@
 	@endforelse
 	<p class="subtotal"> <span class="label">Subtotal:</span> <span class="price">
 		{{$data->where('user_id',$user_id)->sum('Total_Amount')}}</span></p>
-	<div class="actions"> <a href="{{url('viewcart')}}" class="view-cart"> View cart </a> <a href="{{url('checkout/billing')}}">Checkout</a></div>
+	<div class="actions"> <a href="{{url('viewcart')}}" class="view-cart"> View cart </a> <a href="{{url('billing')}}">Checkout</a></div>
 @else
 	No Product Available in the Cart
 @endif

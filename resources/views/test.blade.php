@@ -1,141 +1,314 @@
-<html>
+<Html>
 <Head>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
-.preview-images-zone {
-    width: 100%;
-    border: 1px solid #ddd;
-    min-height: 180px;
-    /* display: flex; */
-    padding: 5px 5px 0px 5px;
-    position: relative;
-    overflow:auto;
-}
-.preview-images-zone > .preview-image:first-child {
-    height: 185px;
-    width: 185px;
-    position: relative;
-    margin-right: 5px;
-}
-.preview-images-zone > .preview-image {
-    height: 90px;
-    width: 90px;
-    position: relative;
-    margin-right: 5px;
-    float: left;
-    margin-bottom: 5px;
-}
-.preview-images-zone > .preview-image > .image-zone {
-    width: 100%;
-    height: 100%;
-}
-.preview-images-zone > .preview-image > .image-zone > img {
-    width: 100%;
-    height: 100%;
-}
-.preview-images-zone > .preview-image > .tools-edit-image {
-    position: absolute;
-    z-index: 100;
-    color: #fff;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 10px;
-    display: none;
-}
-.preview-images-zone > .preview-image > .image-cancel {
-    font-size: 18px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-weight: bold;
-    margin-right: 10px;
-    cursor: pointer;
-    display: none;
-    z-index: 100;
-}
-.preview-image:hover > .image-zone {
-    cursor: move;
-    opacity: .5;
-}
-.preview-image:hover > .tools-edit-image,
-.preview-image:hover > .image-cancel {
-    display: block;
-}
-.ui-sortable-helper {
-    width: 90px !important;
-    height: 90px !important;
+    #invoice{
+    padding: 30px;
 }
 
-.container {
-    padding-top: 50px;
+.invoice {
+    position: relative;
+    background-color: #FFF;
+    min-height: 680px;
+    padding: 15px
+}
+
+.invoice header {
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #3989c6
+}
+
+.invoice .company-details {
+    text-align: right
+}
+
+.invoice .company-details .name {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+.invoice .contacts {
+    margin-bottom: 20px
+}
+
+.invoice .invoice-to {
+    text-align: left
+}
+
+.invoice .invoice-to .to {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+.invoice .invoice-details {
+    text-align: right
+}
+
+.invoice .invoice-details .invoice-id {
+    margin-top: 0;
+    color: #3989c6
+}
+
+.invoice main {
+    padding-bottom: 50px
+}
+
+.invoice main .thanks {
+    margin-top: -100px;
+    font-size: 2em;
+    margin-bottom: 50px
+}
+
+.invoice main .notices {
+    padding-left: 6px;
+    border-left: 6px solid #3989c6
+}
+
+.invoice main .notices .notice {
+    font-size: 1.2em
+}
+
+.invoice table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 20px
+}
+
+.invoice table td,.invoice table th {
+    padding: 15px;
+    background: #eee;
+    border-bottom: 1px solid #fff
+}
+
+.invoice table th {
+    white-space: nowrap;
+    font-weight: 400;
+    font-size: 16px
+}
+
+.invoice table td h3 {
+    margin: 0;
+    font-weight: 400;
+    color: #3989c6;
+    font-size: 1.2em
+}
+
+.invoice table .qty,.invoice table .total,.invoice table .unit {
+    text-align: right;
+    font-size: 1.2em
+}
+
+.invoice table .no {
+    color: #fff;
+    font-size: 1.6em;
+    background: #3989c6
+}
+
+.invoice table .unit {
+    background: #ddd
+}
+
+.invoice table .total {
+    background: #3989c6;
+    color: #fff
+}
+
+.invoice table tbody tr:last-child td {
+    border: none
+}
+
+.invoice table tfoot td {
+    background: 0 0;
+    border-bottom: none;
+    white-space: nowrap;
+    text-align: right;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border-top: 1px solid #aaa
+}
+
+.invoice table tfoot tr:first-child td {
+    border-top: none
+}
+
+.invoice table tfoot tr:last-child td {
+    color: #3989c6;
+    font-size: 1.4em;
+    border-top: 1px solid #3989c6
+}
+
+.invoice table tfoot tr td:first-child {
+    border: none
+}
+
+.invoice footer {
+    width: 100%;
+    text-align: center;
+    color: #777;
+    border-top: 1px solid #aaa;
+    padding: 8px 0
+}
+
+@media print {
+    .invoice {
+        font-size: 11px!important;
+        overflow: hidden!important
+    }
+
+    .invoice footer {
+        position: absolute;
+        bottom: 10px;
+        page-break-after: always
+    }
+
+    .invoice>div:last-child {
+        page-break-before: always
+    }
 }
 </style>
 </Head>
+<!--Author      : @arboshiki-->
 <Body>
-<div class="container">
-    <fieldset class="form-group">
-        <a href="javascript:void(0)" onclick="$('#pro-image').click()">Upload Image</a>
-        <input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control" multiple>
-    </fieldset>
-    <div class="preview-images-zone">
-    	
+<div id="invoice">
+
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+            <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+        </div>
+        <hr>
+    </div>
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <div class="row">
+                    <div class="col">
+                        <a target="_blank" href="https://lobianijs.com">
+                            <img src="http://lobianijs.com/lobiadmin/version/1.0/ajax/img/logo/lobiadmin-logo-text-64.png" data-holder-rendered="true" />
+                            </a>
+                    </div>
+                    <div class="col company-details">
+                        <h2 class="name">
+                            <a target="_blank" href="https://lobianijs.com">
+                            Arboshiki
+                            </a>
+                        </h2>
+                        <div>455 Foggy Heights, AZ 85004, US</div>
+                        <div>(123) 456-789</div>
+                        <div>company@example.com</div>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="row contacts">
+                    <div class="col invoice-to">
+                        <div class="text-gray-light">INVOICE TO:</div>
+                        <h2 class="to">John Doe</h2>
+                        <div class="address">796 Silver Harbour, TX 79273, US</div>
+                        <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+                    </div>
+                    <div class="col invoice-details">
+                        <h1 class="invoice-id">INVOICE 3-2-1</h1>
+                        <div class="date">Date of Invoice: 01/10/2018</div>
+                        <div class="date">Due Date: 30/10/2018</div>
+                    </div>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-left">DESCRIPTION</th>
+                            <th class="text-right">HOUR PRICE</th>
+                            <th class="text-right">HOURS</th>
+                            <th class="text-right">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="no">04</td>
+                            <td class="text-left"><h3>
+                                <a target="_blank" href="https://www.youtube.com/channel/UC_UMEcP_kF0z4E6KbxCpV1w">
+                                Youtube channel
+                                </a>
+                                </h3>
+                               <a target="_blank" href="https://www.youtube.com/channel/UC_UMEcP_kF0z4E6KbxCpV1w">
+                                   Useful videos
+                               </a> 
+                               to improve your Javascript skills. Subscribe and stay tuned :)
+                            </td>
+                            <td class="unit">$0.00</td>
+                            <td class="qty">100</td>
+                            <td class="total">$0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="no">01</td>
+                            <td class="text-left"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
+                            <td class="unit">$40.00</td>
+                            <td class="qty">30</td>
+                            <td class="total">$1,200.00</td>
+                        </tr>
+                        <tr>
+                            <td class="no">02</td>
+                            <td class="text-left"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
+                            <td class="unit">$40.00</td>
+                            <td class="qty">80</td>
+                            <td class="total">$3,200.00</td>
+                        </tr>
+                        <tr>
+                            <td class="no">03</td>
+                            <td class="text-left"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
+                            <td class="unit">$40.00</td>
+                            <td class="qty">20</td>
+                            <td class="total">$800.00</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">SUBTOTAL</td>
+                            <td>$5,200.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">TAX 25%</td>
+                            <td>$1,300.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">GRAND TOTAL</td>
+                            <td>$6,500.00</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="thanks">Thank you!</div>
+                <div class="notices">
+                    <div>NOTICE:</div>
+                    <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+                </div>
+            </main>
+            <footer>
+                Invoice was created on a computer and is valid without the signature and seal.
+            </footer>
+        </div>
+        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+        <div></div>
     </div>
 </div>
 </Body>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <script type="text/javascript">
-	$(document).ready(function() {
-    document.getElementById('pro-image').addEventListener('change', readImage, false);
-    
-    $( ".preview-images-zone" ).sortable();
-    
-    $(document).on('click', '.image-cancel', function() {
-        let no = $(this).data('no');
-        $(".preview-image.preview-show-"+no).remove();
-    });
-});
-
-
-
-var num = 4;
-function readImage() {
-    if (window.File && window.FileList && window.FileReader) {
-        var files = event.target.files; //FileList object
-        var output = $(".preview-images-zone");
-
-        for (let i = 0; i < files.length; i++) {
-            var file = files[i];
-            if (!file.type.match('image')) continue;
-            
-            var picReader = new FileReader();
-            
-            picReader.addEventListener('load', function (event) {
-                var picFile = event.target;
-                var html =  '<div class="preview-image preview-show-' + num + '">' +
-                            '<div class="image-cancel" data-no="' + num + '">x</div>' +
-                            '<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result + '"></div>' +
-                            '<div class="tools-edit-image"><a href="javascript:void(0)" data-no="' + num + '" class="btn btn-light btn-edit-image">edit</a></div>' +
-                            '</div>';
-
-                output.append(html);
-                num = num + 1;
-            });
-
-            picReader.readAsDataURL(file);
-        }
-        $("#pro-image").val('');
-    } else {
-        console.log('Browser not support');
-    }
-}
-
-
+     $('#printInvoice').click(function(){
+            Popup($('.invoice')[0].outerHTML);
+            function Popup(data) 
+            {
+                window.print();
+                return true;
+            }
+        });
 </script>
-</html>
+</Html>

@@ -9,6 +9,10 @@ Laptops
 	<div class="container">
 		<div class="main">
 			<div class="row">
+				<div class="alert alert-success" hidden>
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Success!</strong> Product is successfully added
+				</div>
 				<div class="col-left sidebar col-lg-3 col-md-3 left-color color">
 					<div class="anav-container">
 						<br><br><dt class="even">By Price</dt>
@@ -142,7 +146,7 @@ Laptops
 			}
 		});
 
-		alert("Product added successfully");
+			$("div.alert-success").show("slow");
 	});
 
 	$(function() {

@@ -20,7 +20,7 @@ class CreateOrderdetailsTable extends Migration
             $table->bigInteger('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders');
             $table->integer('quantity');
-            $table->float('total_amount',5,2);
+            $table->float('total_amount');
             $table->timestamps();
         });
     }

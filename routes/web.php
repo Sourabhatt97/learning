@@ -97,6 +97,12 @@ Route::group(['prefix' => 'admin' ,'middleware' => ['web','auth','checkadmin:1']
 		Route::post('/update/{id}','productcontroller@update'); //Update product change product name 
 		Route::get('/checkeditname','productcontroller@checkeditname'); // Check product name unique edit 
 	});
+
+	Route::group(['prefix' => 'order'],function()
+	{
+		Route::get('/list','ordercontroller@index');
+		Route::get('/view/{id}','ordercontroller@orderview');
+	});
 });
 
 
@@ -105,6 +111,7 @@ Route::get('/',function()
 {
 	return view('layout.front.index');
 });
+
 
 Route::get('/products','productsviewcontroller@index'); // Watches page call
 Route::get('/productfilter','productsviewcontroller@productfilter'); // Filteration of Watches
@@ -117,6 +124,19 @@ Route::get('/viewcart','cartcontroller@getfullcart');
 
 Route::get('/remove_product/{id}','cartcontroller@removeproduct');
 
+Route::group(['middleware' => ['web','auth','checkadmin:0'],],function()
+{
+	Route::get('billing','billingcontroller@index');
+	Route::post('/billing/add','billingcontroller@add');
+	Route::get('/paymenttype','billingcontroller@paymenttype');
+	// Route::get('/printinvoicepdf/{id}','billingcontroller@printinvoicepdf');
+	// Route::post('/stripepayment','paymentcontroller@stripepayment');
+});
 
+// Route::get('/payment', 'PaymentController@index');
+Route::post('/charge', 'paymentcontroller@charge');
 
-
+Route::get('/test',function()
+{
+	return view('test');
+});
