@@ -28,6 +28,7 @@ Admin/Order/List
                                 <th>Customer Name</th>   
                                 <th>Status</th> 
                                 <th>Order Date</th>
+                                <th>Shipping Date</th>
                                 <th>View Order</th>  
                             </tr>
                         </thead>
@@ -38,8 +39,9 @@ Admin/Order/List
                             <tr>
                                 <td>{{++$key}}</td>
                                 <td>{{$product->user_name}}</td>
-                                <td>Status</td>
+                                <td>{{$product->order_status}}</td>
                                 <td>{{$product->order_date}}</td>
+                                <td>{{$product->order_shipdate}}</td>
                                 <td>
                                     <a href = "{{url('admin/order/view').'/'.$product->order_id}}"><i class = "fa fa-eye"></i></button></a>
                                 </td>

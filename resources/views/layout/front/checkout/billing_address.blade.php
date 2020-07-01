@@ -78,7 +78,15 @@
 							
 						</TABLE>
 						@endisset
-						<br><label><input type="radio" id="newaddress" name="newaddress" value="addaddress">
+
+						@if(count($bills) == 0)
+
+							<br><label><input type="radio" id="newaddress" name="newaddress" value="addaddress" checked="">
+
+						@else
+							<br><label><input type="radio" id="newaddress" name="newaddress" value="addaddress">
+						@endif
+							
 						Add New Address</label><br>
 
 						<ul class="row">

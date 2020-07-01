@@ -102,6 +102,8 @@ Route::group(['prefix' => 'admin' ,'middleware' => ['web','auth','checkadmin:1']
 	{
 		Route::get('/list','ordercontroller@index');
 		Route::get('/view/{id}','ordercontroller@orderview');
+		Route::get('/status','ordercontroller@status');
+		Route::get('/printinvoicepdf/{order_id}/{bill_id}','ordercontroller@printinvoicepdf');
 	});
 });
 
@@ -129,12 +131,15 @@ Route::group(['middleware' => ['web','auth','checkadmin:0'],],function()
 	Route::get('billing','billingcontroller@index');
 	Route::post('/billing/add','billingcontroller@add');
 	Route::get('/paymenttype','billingcontroller@paymenttype');
+	Route::get('/myorders','ordercontroller@userorderlist');
+	Route::get('myorders/view/{id}','ordercontroller@userorderview');
+	Route::get('myorders/status','ordercontroller@userorderstatus');
 	// Route::get('/printinvoicepdf/{id}','billingcontroller@printinvoicepdf');
 	// Route::post('/stripepayment','paymentcontroller@stripepayment');
 });
 
 // Route::get('/payment', 'PaymentController@index');
-Route::post('/charge', 'paymentcontroller@charge');
+Route::post('stripepay','paymentcontroller@stripepayment');
 
 Route::get('/test',function()
 {

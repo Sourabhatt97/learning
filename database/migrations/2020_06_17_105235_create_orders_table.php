@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->date('order_date');
             $table->date('ship_date');
             $table->date('payment_date');
+            $table->ENUM('status',['dispatch','pending','cancel','cancel_by_user']);
             $table->timestamps();
         });
     }

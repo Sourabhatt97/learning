@@ -179,7 +179,7 @@
 
         <div class="toolbar hidden-print">
             <div class="text-right">
-                <a href="{{url('printinvoicepdf'.'/'.$address[0]->id)}}"><button class="btn btn-info">
+                <!--                 <a href="{{url('printinvoicepdf'.'/'.$address[0]->id)}}"><button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button></a> -->
             </div>
             <hr>
         </div>
@@ -197,9 +197,12 @@
                             </h2>
                             <?php
                             use App\User;
+
+                            $order_id = $products[0]->order_id;
                             $id = Auth::user()->id;
                             $data = User::where('id',$id)->get()->first();
                             ?>
+
                             <div>{{$data->name}}</div>
                             <div>{{$data->phone}}</div>
                             <div>{{$data->email}}</div>
@@ -235,9 +238,9 @@
                             <tr>
                                 <td class="no">01</td>
                                 <td class="text-left"><h3>
-                                    {{$product->name}}
+                                    {{$product->product_name}}
                                 </td>
-                                <td class="unit">{{$product->price}}</td>
+                                <td class="unit">{{$product->product_price}}</td>
                                 <td class="qty">{{$product->quantity}}</td>
                                 <td class="total">{{$product->total_amount}}</td>
                             </tr>
@@ -247,7 +250,7 @@
                             <tr>
                                 <td colspan="2"></td>
                                 <td colspan="2">SUBTOTAL</td>
-                                <td>{{$product->where('user_id',$data['id'])->sum('total_amount')}}</td>
+                                <td>{{$products->where('order_id',$order_id)->sum('total_amount')}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2"></td>
@@ -257,7 +260,7 @@
                             <tr>
                                 <td colspan="2"></td>
                                 <td colspan="2">GRAND TOTAL</td>
-                                <td>{{$product->where('user_id',$data['id'])->sum('total_amount')+100}}</td>
+                                <td>{{$products->where('order_id',$order_id)->sum('total_amount')+100}}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -265,6 +268,7 @@
                 </main>
                 <footer>
                     Invoice was created on a computer and is valid without the signature and seal.
+                    <H3><a href = "{{url('/')}}">Click Here to go back to shooping again</a></H3>
                 </footer>
             </div>
             <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
@@ -273,7 +277,7 @@
     </div>
 </Body>
 <script type="text/javascript">
-   $('#printInvoice').click(function(){
+ $('#printInvoice').click(function(){
     Popup($('.invoice')[0].outerHTML);
     function Popup(data) 
     {

@@ -22,10 +22,17 @@ Admin/Order/View
         <div class="col-sm-12">
             <div class="card-box">
                     
+                <?php
+                    use App\OrderDetail;
+                    $order_id = $orders[0]->order_id;
+                    $total_amount = OrderDetail::where('order_id',$order_id)->sum('total_amount');
+
+                    $bill_id = $address[0]->id;
+                ?>
 
                <div class="breadcrumb float-right shipping address">
-                    <H3>Total Payment:-</H3><br>
-
+                    <a href="{{url('admin/order/printinvoicepdf/'.$order_id.'/'.$bill_id)}}"><button class="btn btn-primary">Print Invoice</button></a>
+                    <H3>Total Payment:- Rs. {{$total_amount}}</H3><br>
                 </div>
 
                 <div class = "billing address">
@@ -60,7 +67,7 @@ Admin/Order/View
                         <div class="form-group row">
                             <div class="col-2">
                                 <select id = "status" name = "status" class="form-control select2">
-                                    <option value = "Select Status">Invoice Status</option>
+                                    <option value = "Select Status">{{$orders[0]->order_status}}</option>
                                     <option value = "Pending">Pending</option>
                                     <option value = "Dispatched">Dispatched</option>
                                     <option value = "Cancel">Cancel</option>
@@ -68,14 +75,13 @@ Admin/Order/View
                             </div>
                         </div>
 
-
                         @foreach($orders as $key=>$order)
                         <thread>
                             <tr>
                                 @foreach($users as $user)
                                 <td>{{$user->name}}</td>
                                 @endforeach
-                                <input id = "id" type="hidden" value="{{$order->bill_id}}"/>
+                                <input id = "id" type="hidden" value="{{$order->order_id}}"/>
                                 <td>{{$order->product_name}}</td>
                                 <td><img src = http://localhost/testing/storage/app/public/images/products/{{$order->UPC}}/main.jpg?.rand() alt = "Image" height = "60" width = "50"></td>
                                 <td>{{$order->quantity}}</td>
@@ -100,16 +106,15 @@ Admin/Order/View
 
     });
 
-
     $(document).on('change','#status', function(){
         var status = $('#status').val();
-        var bill_id = $('#id').val();
+        var order_id = $('#id').val();
 
         $.ajax({
             type: "GET",
             dataType: "json",
             url: "{{url('admin/order/status')}}",
-            data: {'status':status,'bill_id':bill_id},
+            data: {'status':status,'order_id':order_id},
             success: function(res){
                 console.log(res)
             }
