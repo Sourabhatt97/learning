@@ -17,7 +17,8 @@
         "laraveldaily/laravel-invoices": "^1.3",
         "league/omnipay": "^3.0",
         "omnipay/stripe": "^3.1",
-        "stripe/stripe-php": "^7.39"
+        "stripe/stripe-php": "^7.39",
+        "twilio/sdk": "^6.10"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
